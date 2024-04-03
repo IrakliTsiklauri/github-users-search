@@ -7,25 +7,42 @@ import ProfileInfoCard from "./components/ProfileInfoCard";
 import UserSocialCard from "./components/UserSocialCard";
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
+  const [isdark, setisdark] = useState(false);
+  const [query, setQuery] = useState("");
+  const [usersData, setUsersData] = useState();
+  console.log(usersData);
 
   const toggleMode = () => {
-    setIsDark((prevMode) => !prevMode);
+    setisdark((prevMode) => !prevMode);
+  };
+  const handleSearch = () => {
+    const fetchData = async () => {
+      const res = await fetch(`https://api.github.com/users/${query}`);
+      const data = await res.json();
+
+      setUsersData(data);
+    };
+
+    fetchData();
   };
 
   return (
-    <Body isDark={isDark}>
-      <Container isDark={isDark}>
-        <HeaderSection isDark={isDark} toggleMode={toggleMode} />
-        <InputSection isDark={isDark} />
-        <MainSection isDark={isDark}>
+    <Body isdark={isdark}>
+      <Container isdark={isdark}>
+        <HeaderSection isdark={isdark} toggleMode={toggleMode} />
+        <InputSection
+          isdark={isdark}
+          handleSearch={handleSearch}
+          setQuery={setQuery}
+        />
+        <MainSection isdark={isdark}>
           <ProfileImgDiv>
             <ProfileImg src="/images/cat.png" alt="profile img" />
           </ProfileImgDiv>
           <ProfileInfo>
-            <UserBioCard isDark={isDark} />
-            <ProfileInfoCard isDark={isDark} />
-            <UserSocialCard isDark={isDark} />
+            <UserBioCard isdark={isdark} usersData={usersData} />
+            <ProfileInfoCard isdark={isdark} usersData={usersData} />
+            <UserSocialCard isdark={isdark} usersData={usersData}/>
           </ProfileInfo>
         </MainSection>
       </Container>
@@ -42,12 +59,12 @@ const Body = styled.body`
   justify-content: center;
   height: 100vh;
   background-color: ${(props) =>
-    props.isDark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
+    props.isdark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
 `;
 
 const Container = styled.div`
   background-color: ${(props) =>
-    props.isDark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
+    props.isdark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,9 +74,9 @@ const Container = styled.div`
 const MainSection = styled.div`
   width: 730px;
   background-color: ${(props) =>
-    props.isDark ? "rgba(30, 42, 71, 1)" : "rgba(254, 254, 254, 1)"};
+    props.isdark ? "rgba(30, 42, 71, 1)" : "rgba(254, 254, 254, 1)"};
   box-shadow: ${(props) =>
-    props.isDark
+    props.isdark
       ? ""
       : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)"}; //0px 16px 30px -10px rgba(70, 96, 187, 0.2);
   border-radius: 15px;

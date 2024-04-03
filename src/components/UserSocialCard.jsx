@@ -1,27 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 
-const UserSocialCard = ({ isDark }) => {
+const UserSocialCard = ({ isdark, usersData }) => {
   return (
     <Footer>
       <LeftFooter>
         <SocialLinks>
           <img src="/images/icon-location.svg" alt="location" />
-          <SocialSpan isDark={isDark}>San Francisco</SocialSpan>
+          <SocialSpan isdark={isdark}>
+            {usersData?.location ? `${usersData?.location}` : "Not Available"}
+          </SocialSpan>
         </SocialLinks>
         <SocialLinks>
           <img src="/images/icon-website.svg" alt="location" />
-          <SocialSpan isDark={isDark}>https://github.blog</SocialSpan>
+          <SocialSpan isdark={isdark}>
+            {usersData?.blog ? `${usersData?.blog}` : "Not Available"}
+          </SocialSpan>
         </SocialLinks>
       </LeftFooter>
       <RightFooter>
         <SocialLinks>
           <img src="/images/icon-twitter.svg" alt="location" />
-          <SocialSpan isDark={isDark}>Not Available</SocialSpan>
+          <SocialSpan isdark={isdark}>
+            {usersData?.twitter_username
+              ? `${usersData?.twitter_username}`
+              : "Not Available"}
+          </SocialSpan>
         </SocialLinks>
         <SocialLinks>
           <img src="/images/icon-company.svg" alt="location" />
-          <SocialSpan isDark={isDark}>@github</SocialSpan>
+          <SocialSpan isdark={isdark}>
+            {usersData?.company ? `${usersData?.company}` : "Not Available"}
+          </SocialSpan>
         </SocialLinks>
       </RightFooter>
     </Footer>
@@ -57,7 +67,7 @@ const SocialLinks = styled.div`
 const SocialSpan = styled.div`
   font-size: 15px;
   color: ${(props) =>
-    props.isDark ? "rgba(255, 255, 255, 1)" : "rgba(75, 106, 155, 1)"};
+    props.isdark ? "rgba(255, 255, 255, 1)" : "rgba(75, 106, 155, 1)"};
 
   &:hover {
     cursor: pointer;

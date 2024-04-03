@@ -3,16 +3,16 @@ import styled from "styled-components";
 import moonIcon from "../images/icon-moon.svg";
 import sunIcon from "../images/icon-sun.svg";
 
-const HeaderSection = ({ isDark, toggleMode }) => {
+const HeaderSection = ({ isdark, toggleMode }) => {
   return (
-    <Mode isDark={isDark}>
-      <Devfinder isDark={isDark}>devfinder</Devfinder>
+    <Mode isdark={isdark}>
+      <Devfinder isdark={isdark}>devfinder</Devfinder>
       <DarkAndLight>
-        <MoonBtn isDark={isDark} onClick={toggleMode}>
-          <SpanDark isDark={isDark}>{isDark ? "LIGHT" : "DARK"}</SpanDark>
+        <MoonBtn isdark={isdark} onClick={toggleMode}>
+          <SpanDark isdark={isdark}>{isdark ? "LIGHT" : "DARK"}</SpanDark>
           <img
-            src={isDark ? sunIcon : moonIcon}
-            alt={isDark ? "moon" : "sun"}
+            src={isdark ? sunIcon : moonIcon}
+            alt={isdark ? "moon" : "sun"}
           />
         </MoonBtn>
       </DarkAndLight>
@@ -24,7 +24,7 @@ export default HeaderSection;
 
 const Mode = styled.div`
   background-color: ${(props) =>
-    props.isDark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
+    props.isdark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
   width: 730px;
   display: flex;
   justify-content: space-between;
@@ -33,7 +33,7 @@ const Mode = styled.div`
 `;
 
 const Devfinder = styled.h2`
-  color: ${(props) => (props.isDark ? "#fff" : "rgba(34, 39, 49, 1)")};
+  color: ${(props) => (props.isdark ? "#fff" : "rgba(34, 39, 49, 1)")};
   font-size: 26px;
   font-weight: 700;
 `;
@@ -46,7 +46,7 @@ const DarkAndLight = styled.div`
 `;
 
 const SpanDark = styled.span`
-  color: ${(props) => (props.isDark ? "#fff" : "rgba(105, 124, 154, 1)")};
+  color: ${(props) => (props.isdark ? "#fff" : "rgba(105, 124, 154, 1)")};
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2.5px;
@@ -55,7 +55,7 @@ const SpanDark = styled.span`
   &:hover {
     cursor: pointer;
     color: ${(props) =>
-      props.isDark ? "rgba(144, 164, 212, 1)" : "rgba(34, 39, 49, 1)"}; //
+      props.isdark ? "rgba(144, 164, 212, 1)" : "rgba(34, 39, 49, 1)"}; //
   }
 `;
 
@@ -65,7 +65,7 @@ const MoonBtn = styled.button`
   justify-content: center;
   border: none;
   background-color: ${(props) =>
-    props.isDark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
+    props.isdark ? "rgba(20, 29, 47, 1)" : "rgba(246, 248, 255, 1)"};
   display: flex;
   align-items: center;
   gap: 10px;
@@ -75,5 +75,3 @@ const MoonBtn = styled.button`
     cursor: pointer;
   }
 `;
-
-
