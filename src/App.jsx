@@ -5,11 +5,13 @@ import HeaderSection from "./components/HeaderSection";
 import UserBioCard from "./components/UserBioCard";
 import ProfileInfoCard from "./components/ProfileInfoCard";
 import UserSocialCard from "./components/UserSocialCard";
+import profileImg from "./images/avatar.png";
 
 function App() {
   const [isdark, setisdark] = useState(false);
   const [query, setQuery] = useState("");
   const [usersData, setUsersData] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
   console.log(usersData);
 
   const toggleMode = () => {
@@ -17,10 +19,18 @@ function App() {
   };
   const handleSearch = () => {
     const fetchData = async () => {
-      const res = await fetch(`https://api.github.com/users/${query}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`https://api.github.com/users/${query}`);
+        const data = await res.json();
 
-      setUsersData(data);
+        if (!data) throw new Error("No results");
+
+        setUsersData(data);
+        setErrorMessage("");
+      } catch (error) {
+        console.error(error);
+        setErrorMessage(error.message);
+      }
     };
 
     fetchData();
@@ -36,13 +46,23 @@ function App() {
           setQuery={setQuery}
         />
         <MainSection isdark={isdark}>
+          <ErrorParagraph>
+            {errorMessage ? `${errorMessage}` : ""}
+          </ErrorParagraph>
           <ProfileImgDiv>
-            <ProfileImg src="/images/cat.png" alt="profile img" />
+            <ProfileImg
+              src={
+                usersData?.avatar_url
+                  ? `${usersData?.avatar_url}`
+                  : `${profileImg}`
+              }
+              alt="profile img"
+            />
           </ProfileImgDiv>
           <ProfileInfo>
             <UserBioCard isdark={isdark} usersData={usersData} />
             <ProfileInfoCard isdark={isdark} usersData={usersData} />
-            <UserSocialCard isdark={isdark} usersData={usersData}/>
+            <UserSocialCard isdark={isdark} usersData={usersData} />
           </ProfileInfo>
         </MainSection>
       </Container>
@@ -91,9 +111,15 @@ const ProfileImgDiv = styled.div`
 
 const ProfileImg = styled.img`
   border-radius: 50%;
+  width: 117px;
+  height: 117px;
 `;
 
 const ProfileInfo = styled.div`
   margin-left: 40px;
   width: 100%;
+`;
+
+const ErrorParagraph = styled.p`
+  color: red; // Style the error message according to your preference
 `;

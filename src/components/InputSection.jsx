@@ -25,6 +25,12 @@ const InputArea = styled.div`
   margin-bottom: 20px;
 `;
 
+// const ErrorMes = styled.div`
+//   color: rgba(247, 70, 70, 1);
+//   font-size: 15px;
+//   font-weight: 700;
+// `;
+
 const Input = styled.input`
   width: 720px;
   padding: 20px 75px;
