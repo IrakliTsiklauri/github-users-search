@@ -23,8 +23,7 @@ function App() {
         const res = await fetch(`https://api.github.com/users/${query}`);
         const data = await res.json();
 
-        if (!data) throw new Error("No results");
-
+        if (!data.id) throw new Error("No results");
         setUsersData(data);
         setErrorMessage("");
       } catch (error) {
@@ -41,14 +40,12 @@ function App() {
       <Container isdark={isdark}>
         <HeaderSection isdark={isdark} toggleMode={toggleMode} />
         <InputSection
+          errorMessage={errorMessage}
           isdark={isdark}
           handleSearch={handleSearch}
           setQuery={setQuery}
         />
         <MainSection isdark={isdark}>
-          <ErrorParagraph>
-            {errorMessage ? `${errorMessage}` : ""}
-          </ErrorParagraph>
           <ProfileImgDiv>
             <ProfileImg
               src={
@@ -96,9 +93,7 @@ const MainSection = styled.div`
   background-color: ${(props) =>
     props.isdark ? "rgba(30, 42, 71, 1)" : "rgba(254, 254, 254, 1)"};
   box-shadow: ${(props) =>
-    props.isdark
-      ? ""
-      : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)"}; //0px 16px 30px -10px rgba(70, 96, 187, 0.2);
+    props.isdark ? "" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)"};
   border-radius: 15px;
   padding: 40px;
   display: flex;
@@ -118,8 +113,4 @@ const ProfileImg = styled.img`
 const ProfileInfo = styled.div`
   margin-left: 40px;
   width: 100%;
-`;
-
-const ErrorParagraph = styled.p`
-  color: red; // Style the error message according to your preference
 `;

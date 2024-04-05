@@ -6,11 +6,11 @@ const UserBioCard = ({ isdark, usersData }) => {
     <ProfileHead>
       <UserName>
         <Name isdark={isdark}>
-          {usersData?.login ? `${usersData?.login}` : "GitHub Name"}
+          {usersData?.login ? `${usersData?.name}` : "GitHub Name"}
         </Name>
         <JoinedDate isdark={isdark}>{usersData?.created_at}</JoinedDate>
       </UserName>
-      <Link src="#">{usersData?.name ? `${usersData?.name}` : "Name"}</Link>
+      <Link src="#">{usersData?.name ? `${usersData?.login}` : "Name"}</Link>
       <UserBio isdark={isdark}>
         {usersData?.bio ? `${usersData?.bio}` : "This profile has no bio"}
       </UserBio>

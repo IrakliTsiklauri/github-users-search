@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const InputSection = ({ isdark, handleSearch, setQuery }) => {
+const InputSection = ({ isdark, handleSearch, setQuery, errorMessage }) => {
   return (
     <InputArea isdark={isdark}>
+      <ErrorMes> {errorMessage ? `${errorMessage}` : ""}</ErrorMes>
+
       <Input
         onChange={(e) => setQuery(e.target.value)}
         isdark={isdark}
@@ -25,11 +27,14 @@ const InputArea = styled.div`
   margin-bottom: 20px;
 `;
 
-// const ErrorMes = styled.div`
-//   color: rgba(247, 70, 70, 1);
-//   font-size: 15px;
-//   font-weight: 700;
-// `;
+const ErrorMes = styled.p`
+  color: rgba(247, 70, 70, 1);
+  font-size: 15px;
+  font-weight: 700;
+  position: absolute;
+  top: 30%;
+  right: 15%;
+`;
 
 const Input = styled.input`
   width: 720px;
